@@ -38,6 +38,12 @@ public class MainViewModel extends ViewModel {
 		else {
 			BigDecimal bigAns = new BigDecimal(_nume / _denomi);
 			bigAns = bigAns.setScale(3, RoundingMode.HALF_UP);
+				/*
+					setScala(①, ②)	... 指定型多数以下の処理を行う。
+						① ... 指定桁数
+						② ... 処理方法。切り上げ、四捨五入、切り捨てなど
+				 */
+
 			_ans = bigAns.toString();
 		}
 		return _ans;
@@ -87,3 +93,7 @@ public class MainViewModel extends ViewModel {
 		_nume = nume;
 	}
 }
+
+/*
+	ViewModel	... アクティビティ用のデータ保持や処理部分を切り分けたクラス。
+ */
