@@ -27,11 +27,14 @@ public class MainActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
+		// ViewModelの準備
 		ViewModelProvider viewModelProvider = new ViewModelProvider(MainActivity.this);
 		_mainViewModel = viewModelProvider.get(MainViewModel.class);
+
 		EditText etDenomi = findViewById(R.id.etDenomi);
 		EditText etNume = findViewById(R.id.etNume);
 		TextView tvAnswer = findViewById(R.id.tvAnswer);
+
 		etDenomi.setText(_mainViewModel.getStrDenomi());
 		etNume.setText(_mainViewModel.getStrNume());
 		tvAnswer.setText(_mainViewModel.getAns());
@@ -46,8 +49,8 @@ public class MainActivity extends AppCompatActivity {
 		EditText etDenomi = findViewById(R.id.etDenomi);
 		EditText etNume = findViewById(R.id.etNume);
 		TextView tvAnswer = findViewById(R.id.tvAnswer);
-
 		int id = view.getId();
+
 		switch(id) {
 			case R.id.btCalc:
 				String strDenomi = etDenomi.getText().toString();
@@ -55,20 +58,22 @@ public class MainActivity extends AppCompatActivity {
 				if(strDenomi.equals("") || strNume.equals("")) {
 					String msg = "何か数字を入力せなあきまへんがな!";
 					Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
-				}
-				else {
-					double denomi = Double.valueOf(strDenomi);
+
+				} else {
+					double denomi = Double.parseDouble(strDenomi);
 					if(denomi == 0) {
 						String msg = "分母に0はあきまへんがな!";
 						Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
-					}
-					else {
-						double nume = Double.valueOf(strNume);
+
+					} else {
+						double nume = Double.parseDouble(strNume);
+						// ViewModelに値をset
 						_mainViewModel.setDenomi(denomi);
 						_mainViewModel.setNume(nume);
 					}
 				}
 				break;
+
 			case R.id.btClear:
 				_mainViewModel.setNume(0);
 				_mainViewModel.setDenomi(0);

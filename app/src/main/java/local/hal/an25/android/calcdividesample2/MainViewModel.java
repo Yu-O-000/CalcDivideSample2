@@ -95,5 +95,27 @@ public class MainViewModel extends ViewModel {
 }
 
 /*
-	ViewModel	... アクティビティ用のデータ保持や処理部分を切り分けたクラス。
+	ViewModel	... アクティビティ用のデータ保持や処理部分を切り分けたクラス。MVCのModelに近い。
+					MVVM（Model - View - ViewModel）で使うらしい。
+						Model ... DAO呼び出しなど。
+						View ... Activity部分
+						ViewModel ... データ保持、データアクセス系。
+		・フィールド >> UIに必要なデータ用の変数を用意。
+		・メソッド >> アクセサメソッド、フィールドを加工するメソッドなどを用意。
+
+		アクティビティサイド
+			1. ViewModel用フィールドの用意。
+			2. ViewModelの初期化
+				※ newではなく、
+					ViewModelProvider viewModelProvider = new ViewModelProvider(アクティビティコンテキスト);
+					_mainViewModel = viewModelProvider.get(MainViewModel.class);
+					となる。
+						※ ~~.class ... クラス自体を渡す際に使用。オブジェクトではなく、クラスそのもの。
+										内部でインスタンス化などを行ったりしてるらしい。
+
+	画面の回転について
+		... 画面を回転するとライフサイクルとしては、finish処理系を通ったあと起動系が通るので、
+			入力された未保存データは消えてしまう。
+			ViewModelはデータをアクティビティから切り離して保持しているので、ライフサイクルの影響を受けない。
+			※ ViewModelはアクティビティと１：１対応推奨。
  */
